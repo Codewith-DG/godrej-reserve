@@ -1808,20 +1808,23 @@ body {
   position: relative;
   z-index: 0;
 }
+.container-body {
+  z-index: 0;
+}
 .mobile-wrapper {
   min-height: 0;
 }
-  .form-section {
+.form-section {
     background: #e1e1e1;
-    position: absolute;
-    left: -180px;
+    position: relative;
+    right: 0;
     width: 100vw;
     top: 211vw;
-    z-index: 1002;
+    z-index: 999;
   }
-  .top-bar { display: none; }
-  .callbk-wrap { display: none; }
-  .container-side{display: block;}
+.top-bar { display: none; }
+.callbk-wrap { display: none; }
+.container-side{display: block;}
 .container-content {width: 100vw;padding: 20px 20px;}
 .hero-sec {width: 100vw;}
 .logo-section {
@@ -1829,13 +1832,13 @@ body {
     margin: 9px 5px;
       padding: 0;
     }
-    .info-card {
-  width: 100%;
-left: 0;
-top: 216px;
-border: none;
-position: static;
-margin-bottom: 97vw;
+.info-card {
+    width: 100%;
+    left: 0;
+    top: 216px;
+    border: none;
+    position: static;
+    margin-bottom: 97vw;
 }
 .info-body h1 {
   color: #2d5a1b;
