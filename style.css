@@ -1865,7 +1865,7 @@ margin-bottom: 97vw;
 }
 .wlc h2 {
   font-size: 20px;
-  text-align: center;
+  text-align: center !important;
     margin: 0;
 }
 .wlc p {
@@ -1914,8 +1914,11 @@ margin-bottom: 97vw;
   align-items: center;
   justify-content: center;}
   
-  .rera-label {
+.rera-label {
   text-align: center;
+}
+.rera-label {
+  text-align: center !important;
 }
 .promise-box {
   display: none;
@@ -1982,5 +1985,14 @@ margin-bottom: 97vw;
 .dl-pill {
   gap: 15px;
   flex-direction: row-reverse;
+}
+.amenities-header {
+  text-align: center !important;
+  margin-bottom: 0px !important;
+  justify-content: center;
+}
+.about-header {
+  justify-content: center !important;
+  margin: 20px 0 -10px 0 !important;
 }
 }
