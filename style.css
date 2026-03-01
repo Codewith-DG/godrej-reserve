@@ -64,38 +64,39 @@ body {
   -moz-animation: 3s infinite Gradient, 3s infinite rocking;
   animation: 3s 2s infinite Gradient, 3s 2s infinite rocking;
 }
+#more {display: none;}
+.read-more-btn{
+  display: block;
+  background: transparent;
+  color: #4a7c30;
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  margin: 0 0 20px 0;
+}
 
-
-
-
-
-/* Keep navbar always full-width */
 .top-navbar {
   width: 100%;
   min-width: 0;
   box-sizing: border-box;
 }
-
-/* Prevent logo from causing overflow */
 .logo-section {
   min-width: 0;            
   flex-shrink: 1;
 }
 
-
-
-/* Right section never wraps */
 .right-section {
   flex-shrink: 0;
 }
 
-/* Mobile wrapper always full width */
 .mobile-wrapper {
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
 }
-
 
 @media only screen and (min-width: 1600px) {
   .container-body { width: 100vw; }  
@@ -611,6 +612,12 @@ body {
         font-weight: 600;
         color: #4a7c2b;
         margin: 0 0 20px 0 !important
+    }
+    .wlc p {
+      text-align: justify !important;
+    }
+    .wlc-p {
+      text-align: justify !important;
     }
 
 
