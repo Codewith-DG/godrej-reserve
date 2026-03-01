@@ -581,17 +581,35 @@
   </a>
 
   <!-- Chat Avatar Float -->
-  <div class="chat-float" id="chatBtn" title="Chat with us">
-    <div class="chat-avatar-wrap" style="position:relative;">
+  <button class="chat-float" id="chatBtn" title="Chat with us" aria-label="Open chat box" aria-expanded="false">
+    <span class="chat-avatar-wrap" style="position:relative;">
       <img
         src="images/chatbox.jpg"
         alt="Chat with us"
       >
+    </span>
+    <span class="chat-online-dot"></span>
+  </button>
+
+  <div class="chat-widget" id="chatWidget" aria-hidden="true">
+    <div class="chat-widget-header">
+      <div>
+        <p class="chat-widget-title">Godrej Reserve Support</p>
+        <p class="chat-widget-status">Typically replies in a few minutes</p>
+      </div>
+      <button type="button" id="closeChatWidget" class="chat-widget-close" aria-label="Close chat box">&times;</button>
     </div>
-    <div class="chat-online-dot"></div>
+
+    <div class="chat-widget-body" id="chatMessages">
+      <div class="chat-msg chat-msg-agent">Hello 👋 Welcome to Godrej Reserve. How can we help you today?</div>
+    </div>
+
+    <form class="chat-widget-form" id="chatForm">
+      <label for="chatInput" class="visually-hidden">Type your message</label>
+      <input id="chatInput" type="text" placeholder="Type your message..." autocomplete="off" maxlength="280">
+      <button type="submit">Send</button>
+    </form>
   </div>
-
-
 
 
 <!-- Modal -->
@@ -880,11 +898,58 @@
 <script>
   document.getElementById('dlBtn').addEventListener('click', function(e) {
     e.preventDefault();
-    alert('Download Brochure clicked!');
+    document.getElementById('modalOverlay').style.display = 'flex';
   });
 
-  document.getElementById('chatBtn').addEventListener('click', function() {
-    alert('Chat with us clicked!');
+  const chatBtn = document.getElementById('chatBtn');
+  const chatWidget = document.getElementById('chatWidget');
+  const closeChatWidget = document.getElementById('closeChatWidget');
+  const chatForm = document.getElementById('chatForm');
+  const chatInput = document.getElementById('chatInput');
+  const chatMessages = document.getElementById('chatMessages');
+
+  function toggleChatWidget(show) {
+    chatWidget.classList.toggle('open', show);
+    chatWidget.setAttribute('aria-hidden', String(!show));
+    chatBtn.setAttribute('aria-expanded', String(show));
+
+    if (show) {
+      chatInput.focus();
+    }
+  }
+
+  chatBtn.addEventListener('click', function() {
+    const shouldOpen = !chatWidget.classList.contains('open');
+    toggleChatWidget(shouldOpen);
+  });
+
+  closeChatWidget.addEventListener('click', function() {
+    toggleChatWidget(false);
+  });
+
+  chatForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const message = chatInput.value.trim();
+    if (!message) return;
+
+    const userMessage = document.createElement('div');
+    userMessage.className = 'chat-msg chat-msg-user';
+    userMessage.textContent = message;
+    chatMessages.appendChild(userMessage);
+
+    const autoReply = document.createElement('div');
+    autoReply.className = 'chat-msg chat-msg-agent';
+    autoReply.textContent = 'Thanks for reaching out. Our team will contact you shortly.';
+    chatMessages.appendChild(autoReply);
+
+    chatInput.value = '';
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  });
+
+  document.addEventListener('click', function(e) {
+    if (!chatWidget.contains(e.target) && !chatBtn.contains(e.target)) {
+      toggleChatWidget(false);
+    }
   });
 </script>
 
