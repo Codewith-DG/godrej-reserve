@@ -245,37 +245,37 @@
         <div class="pricing-layout">
             <!-- Pricing Table -->
             <div class="pricing-table-wrap">
-            <table class="pricing-table">
-                <thead>
-                <tr>
-                    <th>Type</th>
-                    <th>Carpet Area</th>
-                    <th colspan="2">Price</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>3 BHK</td>
-                    <td>1450 SqFt</td>
-                    <td>
-                    <div class="price-cell">
-                        <span class="price-text">₹ 6.49 Cr Onwards</span>
-                        <button class="price-btn">Price Breakup</button>
-                    </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>4 BHK</td>
-                    <td>2000 SqFt</td>
-                    <td>
-                    <div class="price-cell">
-                        <span class="price-text">₹ 8.69 Cr Onwards</span>
-                        <button class="price-btn">Price Breakup</button>
-                    </div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+              <table class="pricing-table">
+                  <thead>
+                  <tr>
+                      <th>Type</th>
+                      <th>Carpet Area</th>
+                      <th colspan="2">Price</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                      <td>3 BHK</td>
+                      <td>1450 SqFt</td>
+                      <td>
+                      <div class="price-cell">
+                          <span class="price-text">₹ 6.49 Cr Onwards</span>
+                          <button class="price-btn">Price Breakup</button>
+                      </div>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td>4 BHK</td>
+                      <td>2000 SqFt</td>
+                      <td>
+                      <div class="price-cell">
+                          <span class="price-text">₹ 8.69 Cr Onwards</span>
+                          <button class="price-btn">Price Breakup</button>
+                      </div>
+                      </td>
+                  </tr>
+                  </tbody>
+              </table>
             </div>
 
             <!-- Costing Card -->
@@ -694,7 +694,6 @@
 </div>  
 
 
-
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="script.js"></script>
@@ -767,18 +766,35 @@
     { label: "Kids Play Area",       img: "images/amenities/kdsplayarea.webp" },
   ];
 
-  const ROWS         = 2;
-  const VISIBLE_COLS = 3;
   const GAP          = 12; // must match CSS gap (px)
+  const MOBILE_BREAK = 768; // px — below this = mobile
 
   const track    = document.getElementById('sliderTrack');
   const viewport = document.getElementById('sliderViewport');
   const prevBtn  = document.getElementById('prevBtn');
   const nextBtn  = document.getElementById('nextBtn');
 
-  let currentCol  = 0;
-  const totalCols = Math.ceil(amenities.length / ROWS); // 6
-  const maxCol    = totalCols - VISIBLE_COLS;            // 3
+  let currentCol = 0;
+
+  // ── Responsive config ─────────────────────────────────────────
+  function isMobile() {
+    return window.innerWidth < MOBILE_BREAK;
+  }
+
+  function getConfig() {
+    if (isMobile()) {
+      return { rows: 2, visibleCols: 1 };
+    }
+    return { rows: 2, visibleCols: 3 };
+  }
+
+  function getTotalCols(rows, visibleCols) {
+    return Math.ceil(amenities.length / rows);
+  }
+
+  function getMaxCol(rows, visibleCols) {
+    return Math.max(0, getTotalCols(rows, visibleCols) - visibleCols);
+  }
 
   // ── Build all cards once ──────────────────────────────────────
   amenities.forEach(item => {
@@ -792,15 +808,15 @@
   });
 
   // ── Calculate card width from live viewport size ──────────────
-  function getCardWidth() {
+  function getCardWidth(visibleCols) {
     const vw = viewport.offsetWidth;
-    // 3 visible cards + 2 gaps between them
-    return (vw - GAP * (VISIBLE_COLS - 1)) / VISIBLE_COLS;
+    return (vw - GAP * (visibleCols - 1)) / visibleCols;
   }
 
   // ── Set all card widths ───────────────────────────────────────
   function setCardWidths() {
-    const w = getCardWidth();
+    const { visibleCols } = getConfig();
+    const w = getCardWidth(visibleCols);
     document.querySelectorAll('.amenity-card').forEach(c => {
       c.style.width = w + 'px';
     });
@@ -808,9 +824,13 @@
 
   // ── Navigate to column index ──────────────────────────────────
   function goTo(col) {
+    const { rows, visibleCols } = getConfig();
+    const maxCol = getMaxCol(rows, visibleCols);
+
     currentCol = Math.max(0, Math.min(col, maxCol));
     setCardWidths();
-    const cardW = getCardWidth();
+
+    const cardW = getCardWidth(visibleCols);
     const shift = currentCol * (cardW + GAP);
     track.style.transform = `translateX(-${shift}px)`;
 
@@ -819,12 +839,14 @@
   }
 
   // ── Auto slide ────────────────────────────────────────────────
-  const AUTO_DELAY = 3000; // ms between slides
+  const AUTO_DELAY = 3000;
   let autoTimer = null;
 
   function startAuto() {
     stopAuto();
     autoTimer = setInterval(() => {
+      const { rows, visibleCols } = getConfig();
+      const maxCol = getMaxCol(rows, visibleCols);
       const next = currentCol >= maxCol ? 0 : currentCol + 1;
       goTo(next);
     }, AUTO_DELAY);
@@ -842,7 +864,13 @@
   prevBtn.addEventListener('click', () => { goTo(currentCol - 1); startAuto(); });
   nextBtn.addEventListener('click', () => { goTo(currentCol + 1); startAuto(); });
 
-  window.addEventListener('resize', () => goTo(currentCol));
+  window.addEventListener('resize', () => {
+    // Clamp currentCol in case maxCol shrinks after resize
+    const { rows, visibleCols } = getConfig();
+    const maxCol = getMaxCol(rows, visibleCols);
+    currentCol = Math.min(currentCol, maxCol);
+    goTo(currentCol);
+  });
 
   // ── Init ──────────────────────────────────────────────────────
   goTo(0);

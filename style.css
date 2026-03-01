@@ -264,7 +264,7 @@ body {
     color: #333;
     font-size: 14px;
     font-weight: 600;
-    border-bottom: 1px solid #f0f0f0;
+    border-bottom: 1px solid #cacaca;
     transition: background 0.15s;
 }
 .mobile-nav-link:hover { background: #f8f8f8; color: #333; }
@@ -1821,6 +1821,7 @@ body {
     width: 100vw;
     top: 211vw;
     z-index: 999;
+    padding: 30px 40px 40px 40px;
   }
 .top-bar { display: none; }
 .callbk-wrap { display: none; }
@@ -1843,8 +1844,8 @@ body {
 .info-body h1 {
   color: #2d5a1b;
 }
-    .reserve-text { font-size: 20px; letter-spacing: 3px; }
-    .mobile-download-btn, .mobile-phone-btn { font-size: 11.5px; }
+.reserve-text { font-size: 20px; letter-spacing: 3px; }
+.mobile-download-btn, .mobile-phone-btn { font-size: 11.5px; }
 
 .booking-banner {
   border-radius: 0;
@@ -1951,9 +1952,9 @@ body {
 .top-navbar {
   z-index: 1111;
 }
-.amenity-card {
+/* .amenity-card {
   width: 222px !important;
-}
+} */
 .play-btn {
   top: 70%;
   left: 50%;
@@ -1997,5 +1998,11 @@ body {
 .about-header {
   justify-content: center !important;
   margin: 20px 0 -10px 0 !important;
+}
+.slider-track {
+    height: 475px !important; 
+  }
+.amenity-card {
+  height: 220px;
 }
 }
