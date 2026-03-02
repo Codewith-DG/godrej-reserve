@@ -83,10 +83,6 @@ body {
   min-width: 0;
   box-sizing: border-box;
 }
-.logo-section {
-  min-width: 0;            
-  flex-shrink: 1;
-}
 
 .right-section {
   flex-shrink: 0;
@@ -118,16 +114,16 @@ body {
 
 /* Logo */
 .logo-section {
-    min-width: 200px;
-    margin-left: 3px;
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    
 }
-/* .logo-section img {
-    height: 40px;
-    width: auto;
-    margin-right: 12px;
-} */
+.logo-section img {
+  width: 65%; 
+  margin: 0 0 0 33px;
+}
 
 /* Home button */
 .home {
@@ -1126,7 +1122,7 @@ body {
     /* ── LOGO ── */
    .logo-center {
     text-align: center;
-    width: 200px;
+    width: 160px;
     margin: auto;
     }
     .logo-center img {
