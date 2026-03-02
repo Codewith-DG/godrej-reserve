@@ -1925,7 +1925,7 @@ body {
     position: relative;
     right: 0;
     width: 100vw;
-    top: 211vw;
+    top: 220vw;
     z-index: 999;
     padding: 30px 40px 40px 40px;
   }
@@ -2052,7 +2052,7 @@ body {
   justify-content: center;
 }
 .brand-logo {
-  width: 65%;
+  width: 45%;
   margin: 0;
 }
 .top-navbar {
@@ -2114,5 +2114,9 @@ body {
   }
 .amenity-card {
   height: 220px;
+}
+.logo-section img {
+  width: 65%;
+  margin: 5px 0 0 5px;
 }
 }
