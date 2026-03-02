@@ -1519,8 +1519,11 @@ body {
 
     .brand-logo {
       margin-bottom: 24px;
+      width: 140px;
     }
-
+    .brand-logo img {
+  width: 100%;
+}
     .brand-logo .godrej-text {
       font-size: 0.72rem;
       font-weight: 700;
